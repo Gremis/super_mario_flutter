@@ -1,6 +1,9 @@
 # app
 
-A new Flutter application.
+A new Flutter application of Mario grows with one mushroom. It is only this:
+
+![](mario.gif)
+
 
 ## Getting Started
 
