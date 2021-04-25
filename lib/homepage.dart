@@ -14,6 +14,8 @@ class _HomePageState extends State<HomePage> {
   double time = 0;
   double height = 0;
   double initialHeight = marioY;
+  String direction = "right";
+  bool midrun = false;
 
   void preJump() {
     time = 0;
@@ -25,6 +27,32 @@ class _HomePageState extends State<HomePage> {
     Timer.periodic(Duration(milliseconds: 50), (timer) {
       time += 0.05;
       height = -4.9 * time * time + 5 * time;
+
+      if (initialHeight - height > 1) {
+        setState(() {
+          marioY = 1;
+        });
+      } else {
+        setState(() {
+          marioY = initialHeight - height;
+        });
+      }
+    });
+  }
+
+  void moveRight() {
+    direction = "right";
+    midrun = !midrun;
+    setState(() {
+      marioX += 0.02;
+    });
+  }
+
+  void moveLeft() {
+    direction = "left";
+    midrun = !midrun;
+    setState(() {
+      marioX -= 0.02;
     });
   }
 
@@ -40,7 +68,10 @@ class _HomePageState extends State<HomePage> {
               child: AnimatedContainer(
                 alignment: Alignment(marioX, marioY),
                 duration: Duration(milliseconds: 0),
-                child: MyMario(),
+                child: MyMario(
+                  direction: direction,
+                  midrun: midrun,
+                ),
               ),
             ),
           ),
@@ -53,12 +84,15 @@ class _HomePageState extends State<HomePage> {
                 children: [
                   MyButton(
                     child: Icon(Icons.arrow_back, color: Colors.white),
+                    function: moveLeft,
                   ),
                   MyButton(
                     child: Icon(Icons.arrow_upward, color: Colors.white),
+                    function: jump,
                   ),
                   MyButton(
                     child: Icon(Icons.arrow_forward, color: Colors.white),
+                    function: moveRight,
                   ),
                 ],
               ),
