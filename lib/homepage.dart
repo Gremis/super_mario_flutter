@@ -27,7 +27,7 @@ class _HomePageState extends State<HomePage> {
       textStyle: TextStyle(color: Colors.white, fontSize: 20));
 
   void ateShrooms() {
-    if ((marioX - shroomY).abs() < 0.05 && (marioY - shroomY).abs() < 0.05) {
+    if ((marioX - shroomX).abs() < 0.05 && (marioY - shroomY).abs() < 0.05) {
       setState(() {
         shroomX = 2;
         marioSize = 100;
